@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
-import { DELETE_ALL_EVENTS, addEvent } from '../store/actions'
-import PropTypes from 'prop-types'
+import React, { useState, useContext } from 'react'
+import { addEvent, deletAllEvents, addOperation, deleteAllOperations } from '../store/actions'
+import AppContex from '../context/AppContext'
 
-const EventForm = ({state, dispath}) => {
+const EventForm =  () => {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
+  const {state, dispatch} = useContext(AppContex)
+
   const createEvent = e => {
     e.preventDefault()
-    dispath(
+    dispatch(
       addEvent(title, body)
     )
+    dispatch(addOperation('イベント作成'))
     setTitle('')
     setBody('')
   }
@@ -17,10 +20,13 @@ const EventForm = ({state, dispath}) => {
     e.preventDefault()
     const result = window.confirm('全てのイベントを削除してもいいですか？')
     if (result) {
-      dispath({
-        type: DELETE_ALL_EVENTS
-      })
+      dispatch(deletAllEvents())
+      dispatch(addOperation('イベント全削除'))
     }
+  }
+  const deleteAllLogs = e => {
+    e.preventDefault()
+    dispatch(deleteAllOperations())
   }
   return (
   <React.Fragment>
@@ -33,13 +39,10 @@ const EventForm = ({state, dispath}) => {
       <textarea className="form-control" id="formEventBody" value={body} onChange={(e) => setBody(e.target.value)}/>
     </div>
     <button className="btn btn-primary" onClick={createEvent} disabled={!(title  &&  body)}>イベントを作成する</button>
-    <button className="btn btn-danger" onClick={deleteAllEvents} disabled={state.length < 1}>イベントを全て削除する</button>
+    <button className="btn btn-danger" onClick={deleteAllEvents} disabled={state.events.length < 1}>イベントを全て削除する</button> 
+    <button className="btn btn-danger" onClick={deleteAllLogs} disabled={state.operationLogs < 1}>操作ログを削除する</button>
   </React.Fragment>
   )
 }
 
-EventForm.propTypes = {
-  state: PropTypes.array,
-  dispath: PropTypes.func
-}
 export default EventForm

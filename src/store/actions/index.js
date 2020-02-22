@@ -1,7 +1,4 @@
-export const CREATE_EVENT = 'CREATE_EVENT'
-export const DELETE_EVENT = 'DELETE_EVENT'
-export const DELETE_ALL_EVENTS = 'DELETE_ALL_EVENTS'
-
+import { CREATE_EVENT, DELETE_EVENT, DELETE_ALL_EVENTS } from './actiontypes'
 
 export const addEvent = (title, body) => ({
   type: CREATE_EVENT,

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { DELETE_ALL_EVENTS, addEvent } from '../store/actions'
+import { addEvent } from '../store/actions'
+import { DELETE_ALL_EVENTS } from '../store/actions/actiontypes'
 import PropTypes from 'prop-types'
 
 const EventForm = ({state, dispath}) => {
@@ -33,7 +34,7 @@ const EventForm = ({state, dispath}) => {
       <textarea className="form-control" id="formEventBody" value={body} onChange={(e) => setBody(e.target.value)}/>
     </div>
     <button className="btn btn-primary" onClick={createEvent} disabled={!(title  &&  body)}>イベントを作成する</button>
-    <button className="btn btn-danger" onClick={deleteAllEvents} disabled={state.length < 1}>イベントを全て削除する</button>
+    <button className="btn btn-danger" onClick={deleteAllEvents} disabled={state.length < 1}>イベントを全て削除する</button> 
   </React.Fragment>
   )
 }

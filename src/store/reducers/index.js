@@ -2,7 +2,7 @@ import {
   CREATE_EVENT, 
   DELETE_EVENT, 
   DELETE_ALL_EVENTS
-} from '../actions'
+} from '../actions/actiontypes'
 
 const events = (state = [], action) => {
   switch(action.type) {

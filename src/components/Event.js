@@ -1,5 +1,5 @@
 import React from 'react'
-import { DELETE_EVENT } from '../store/actions'
+import { DELETE_EVENT } from '../store/actions/actiontypes'
 
 const Event = ({ dispath, event}) => {
   const handleDeleteButton = () => {
